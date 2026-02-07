@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gladiator Combine - Cricket Performance Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .app {
+            max-width: 428px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: #000;
+            position: relative;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 30px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .logo-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            font-weight: bold;
+            box-shadow: 0 8px 24px rgba(211, 47, 47, 0.4);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .logo-subtext {
+            font-size: 13px;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            margin-top: 8px;
+        }
+
+        .tagline {
+            font-size: 15px;
+            opacity: 0.6;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .input-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #000;
+        }
+
+        .input::placeholder {
+            color: #666;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .link-danger {
+            color: #D32F2F;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        /* Home Screen */
+        .home-screen {
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .user-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 2px solid #D32F2F;
+        }
+
+        .user-avatar {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .user-greeting {
+            font-size: 13px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .user-name {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .user-role {
+            font-size: 12px;
+            opacity: 0.6;
+            margin-top: 5px;
+        }
+
+        .menu-list {
+            padding: 20px;
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            padding: 22px;
+            margin-bottom: 15px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .menu-item:active {
+            transform: scale(0.98);
+            border-color: #D32F2F;
+        }
+
+        .menu-item-content {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .menu-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 2px 6px rgba(211, 47, 47, 0.4);
+        }
+
+        .menu-text {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .menu-arrow {
+            font-size: 24px;
+            opacity: 0.4;
+        }
+
+        /* Player Profile Screen */
+        .player-profile-screen {
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .player-header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 2px solid #D32F2F;
+        }
+
+        .player-photo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #333 0%, #222 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            border: 4px solid #D32F2F;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .upload-photo-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #D32F2F;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            border: 3px solid #000;
+        }
+
+        .player-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .player-role-badge {
+            display: inline-block;
+            background: #D32F2F;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .player-info-section {
+            padding: 25px 20px;
+            background: #0d0d0d;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: #D32F2F;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .info-card {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+
+        .info-label {
+            font-size: 11px;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #1a1a1a;
+            padding: 18px 12px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        .stat-value {
+            font-size: 26px;
+            font-weight: bold;
+            color: #D32F2F;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Add Player Form */
+        .form-section {
+            padding: 25px 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #D32F2F;
+        }
+
+        select.form-input {
+            cursor: pointer;
+        }
+
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .photo-upload {
+            width: 100%;
+            padding: 40px 20px;
+            background: #1a1a1a;
+            border: 2px dashed #333;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .photo-upload:hover {
+            border-color: #D32F2F;
+        }
+
+        .photo-upload-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        .photo-upload-text {
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            color: #fff;
+            border: 2px solid #333;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Players List */
+        .players-list {
+            padding: 20px;
+        }
+
+        .player-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            display: flex;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .player-card:active {
+            transform: scale(0.98);
+            border-color: #D32F2F;
+        }
+
+        .player-card-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #333 0%, #222 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            border: 2px solid #D32F2F;
+            flex-shrink: 0;
+        }
+
+        .player-card-info {
+            flex: 1;
+        }
+
+        .player-card-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .player-card-role {
+            font-size: 12px;
+            color: #D32F2F;
+            margin-bottom: 8px;
+        }
+
+        .player-card-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 11px;
+            opacity: 0.6;
+        }
+
+        .add-fab {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(211, 47, 47, 0.5);
+            z-index: 100;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a1a1a;
+            border-top: 1px solid #333;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            max-width: 428px;
+            margin: 0 auto;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+
+        .nav-item.active {
+            opacity: 1;
+            color: #D32F2F;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .demo-badge {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #D32F2F;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            z-index: 1000;
+            letter-spacing: 1px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            opacity: 0.5;
+        }
+
+        .empty-icon {
+            font-size: 72px;
+            margin-bottom: 20px;
+        }
+
+        .empty-text {
+            font-size: 16px;
+        }
+
+        .highlight-stat {
+            background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .highlight-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .highlight-value {
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        .video-section {
+            margin-bottom: 25px;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 1px solid #333;
+            cursor: pointer;
+        }
+
+        .video-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-badge">DEMO</div>
+    <div id="root" class="app"></div>
+
+    <script>
+        // State Management
+        const state = {
+            currentScreen: 'login',
+            currentUser: null,
+            currentPlayerId: null,
+            players: [
+                {
+                    id: 1,
+                    name: 'Virat Sharma',
+                    role: 'Batsman',
+                    age: 23,
+                    team: 'Mumbai Strikers',
+                    battingStyle: 'Right-hand',
+                    bowlingStyle: 'Right-arm Medium',
+                    matches: 45,
+                    runs: 2340,
+                    wickets: 12,
+                    average: 52.0,
+                    strikeRate: 145.3,
+                    photo: '🏏'
+                },
+                {
+                    id: 2,
+                    name: 'Arjun Patel',
+                    role: 'All-rounder',
+                    age: 25,
+                    team: 'Delhi Warriors',
+                    battingStyle: 'Left-hand',
+                    bowlingStyle: 'Left-arm Spin',
+                    matches: 38,
+                    runs: 1850,
+                    wickets: 42,
+                    average: 48.7,
+                    strikeRate: 132.5,
+                    photo: '🏏'
+                },
+                {
+                    id: 3,
+                    name: 'Rahul Kumar',
+                    role: 'Bowler',
+                    age: 21,
+                    team: 'Bangalore Titans',
+                    battingStyle: 'Right-hand',
+                    bowlingStyle: 'Right-arm Fast',
+                    matches: 29,
+                    runs: 245,
+                    wickets: 56,
+                    average: 12.3,
+                    strikeRate: 98.4,
+                    photo: '🏏'
+                }
+            ],
+            teams: [
+                { id: 1, name: 'Mumbai Strikers', players: 25 },
+                { id: 2, name: 'Delhi Warriors', players: 23 },
+                { id: 3, name: 'Bangalore Titans', players: 22 }
+            ]
+        };
+
+        // Render Functions
+        function render() {
+            const root = document.getElementById('root');
+            
+            switch(state.currentScreen) {
+                case 'login':
+                    root.innerHTML = renderLogin();
+                    break;
+                case 'home':
+                    root.innerHTML = renderHome();
+                    break;
+                case 'players':
+                    root.innerHTML = renderPlayersList();
+                    break;
+                case 'player-profile':
+                    root.innerHTML = renderPlayerProfile();
+                    break;
+                case 'add-player':
+                    root.innerHTML = renderAddPlayer();
+                    break;
+                case 'teams':
+                    root.innerHTML = renderTeams();
+                    break;
+                case 'stats':
+                    root.innerHTML = renderStats();
+                    break;
+            }
+            
+            attachEventListeners();
+        }
+
+        function renderLogin() {
+            return `
+                <div class="login-screen">
+                    <div class="logo">
+                        <div class="logo-icon">🏏</div>
+                        <div class="logo-text">GLADIATOR</div>
+                        <div class="logo-subtext">COMBINE</div>
+                        <div class="tagline">Performance Analytics Platform</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" class="input" placeholder="Email or Username" id="username" value="coach@gladiator.com">
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" class="input" placeholder="Password" id="password" value="demo123">
+                    </div>
+                    
+                    <button class="btn" onclick="login()">SIGN IN</button>
+                    
+                    <a class="link" onclick="alert('Demo: Register feature')">Create Account</a>
+                    <a class="link link-danger" onclick="alert('Demo: Password recovery')">Forgot password?</a>
+                </div>
+            `;
+        }
+
+        function renderHome() {
+            return `
+                <div class="home-screen">
+                    <div class="header">
+                        <div class="header-title">GLADIATOR COMBINE</div>
+                    </div>
+                    
+                    <div class="user-section">
+                        <div class="user-avatar">👤</div>
+                        <div class="user-greeting">Welcome back</div>
+                        <div class="user-name">${state.currentUser || 'COACH'}</div>
+                        <div class="user-role">Cricket Performance Analyst</div>
+                    </div>
+                    
+                    <div class="menu-list">
+                        <div class="menu-item" onclick="navigateTo('players')">
+                            <div class="menu-item-content">
+                                <div class="menu-icon">👥</div>
+                                <div class="menu-text">PLAYER PROFILES</div>
+                            </div>
+                            <div class="menu-arrow">›</div>
+                        </div>
+                        
+                        <div class="menu-item" onclick="navigateTo('teams')">
+                            <div class="menu-item-content">
+                                <div class="menu-icon">🏆</div>
+                                <div class="menu-text">TEAM MANAGEMENT</div>
+                            </div>
+                            <div class="menu-arrow">›</div>
+                        </div>
+                        
+                        <div class="menu-item" onclick="navigateTo('stats')">
+                            <div class="menu-item-content">
+                                <div class="menu-icon">📊</div>
+                                <div class="menu-text">PERFORMANCE ANALYTICS</div>
+                            </div>
+                            <div class="menu-arrow">›</div>
+                        </div>
+                        
+                        <div class="menu-item" onclick="alert('Demo: Video Highlights - Coming soon!')">
+                            <div class="menu-item-content">
+                                <div class="menu-icon">🎥</div>
+                                <div class="menu-text">VIDEO HIGHLIGHTS</div>
+                            </div>
+                            <div class="menu-arrow">›</div>
+                        </div>
+                        
+                        <div class="menu-item" onclick="alert('Demo: Recruitment - Coming soon!')">
+                            <div class="menu-item-content">
+                                <div class="menu-icon">🎯</div>
+                                <div class="menu-text">RECRUITMENT</div>
+                            </div>
+                            <div class="menu-arrow">›</div>
+                        </div>
+                    </div>
+                    
+                    ${renderBottomNav('home')}
+                </div>
+            `;
+        }
+
+        function renderPlayersList() {
+            return `
+                <div class="player-profile-screen">
+                    <div class="header">
+                        <div class="header-title">PLAYER PROFILES</div>
+                    </div>
+                    
+                    ${state.players.length === 0 ? `
+                        <div class="empty-state">
+                            <div class="empty-icon">👥</div>
+                            <div class="empty-text">No players yet<br>Tap + to add your first player</div>
+                        </div>
+                    ` : `
+                        <div class="players-list">
+                            ${state.players.map(player => `
+                                <div class="player-card" onclick="viewPlayer(${player.id})">
+                                    <div class="player-card-avatar">${player.photo}</div>
+                                    <div class="player-card-info">
+                                        <div class="player-card-name">${player.name}</div>
+                                        <div class="player-card-role">${player.role}</div>
+                                        <div class="player-card-stats">
+                                            <span>🏏 ${player.matches} Matches</span>
+                                            <span>⚡ ${player.runs} Runs</span>
+                                            <span>🎯 ${player.wickets} Wickets</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `}
+                    
+                    <button class="add-fab" onclick="navigateTo('add-player')">+</button>
+                    
+                    ${renderBottomNav('players')}
+                </div>
+            `;
+        }
+
+        function renderPlayerProfile() {
+            const player = state.players.find(p => p.id === state.currentPlayerId);
+            if (!player) {
+                navigateTo('players');
+                return '';
+            }
+            
+            return `
+                <div class="player-profile-screen">
+                    <div class="header">
+                        <button class="back-btn" onclick="navigateTo('players')">◄</button>
+                        <div class="header-title">PLAYER PROFILE</div>
+                        <div style="width: 30px;"></div>
+                    </div>
+                    
+                    <div class="player-header">
+                        <div class="player-photo">
+                            ${player.photo}
+                            <div class="upload-photo-btn" onclick="alert('Demo: Upload photo')">📷</div>
+                        </div>
+                        <div class="player-name">${player.name}</div>
+                        <div class="player-role-badge">${player.role}</div>
+                    </div>
+                    
+                    <div class="player-info-section">
+                        <div class="section-title">📋 BASIC INFO</div>
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <div class="info-label">Age</div>
+                                <div class="info-value">${player.age}</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="info-label">Team</div>
+                                <div class="info-value" style="font-size: 14px;">${player.team}</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="info-label">Batting</div>
+                                <div class="info-value" style="font-size: 14px;">${player.battingStyle}</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="info-label">Bowling</div>
+                                <div class="info-value" style="font-size: 14px;">${player.bowlingStyle}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="section-title">📊 CAREER STATS</div>
+                        <div class="highlight-stat">
+                            <div class="highlight-label">Batting Average</div>
+                            <div class="highlight-value">${player.average}</div>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">${player.matches}</div>
+                                <div class="stat-label">Matches</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${player.runs}</div>
+                                <div class="stat-label">Runs</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${player.wickets}</div>
+                                <div class="stat-label">Wickets</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${player.strikeRate}</div>
+                                <div class="stat-label">Strike Rate</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">15</div>
+                                <div class="stat-label">Catches</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">8</div>
+                                <div class="stat-label">50s</div>
+                            </div>
+                        </div>
+                        
+                        <div class="section-title">🎥 HIGHLIGHTS</div>
+                        <div class="video-section">
+                            <div class="video-placeholder" onclick="alert('Demo: Video highlights - Coming soon!')">
+                                <div class="video-icon">▶️</div>
+                                <div class="photo-upload-text">Upload highlight reels</div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-primary" onclick="alert('Demo: Edit player profile')">EDIT PROFILE</button>
+                        <button class="btn-secondary" onclick="alert('Demo: Share player profile')">SHARE PROFILE</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAddPlayer() {
+            return `
+                <div class="player-profile-screen">
+                    <div class="header">
+                        <button class="back-btn" onclick="navigateTo('players')">◄</button>
+                        <div class="header-title">ADD PLAYER</div>
+                        <div style="width: 30px;"></div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-group">
+                            <div class="photo-upload" onclick="alert('Demo: Upload photo')">
+                                <div class="photo-upload-icon">📷</div>
+                                <div class="photo-upload-text">Upload Player Photo</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" id="playerName" placeholder="Enter player's full name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Role</label>
+                            <select class="form-input" id="playerRole">
+                                <option value="">Select role</option>
+                                <option value="Batsman">Batsman</option>
+                                <option value="Bowler">Bowler</option>
+                                <option value="All-rounder">All-rounder</option>
+                                <option value="Wicket-keeper">Wicket-keeper</option>
+                            </select>
+                        </div>
+                        
+                        <div class="info-grid">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-input" id="playerAge" placeholder="Age">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Jersey #</label>
+                                <input type="number" class="form-input" id="playerNumber" placeholder="Number">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Team</label>
+                            <select class="form-input" id="playerTeam">
+                                <option value="">Select team</option>
+                                ${state.teams.map(team => `<option value="${team.name}">${team.name}</option>`).join('')}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Batting Style</label>
+                            <select class="form-input" id="battingStyle">
+                                <option value="">Select batting style</option>
+                                <option value="Right-hand">Right-hand</option>
+                                <option value="Left-hand">Left-hand</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Bowling Style</label>
+                            <select class="form-input" id="bowlingStyle">
+                                <option value="">Select bowling style</option>
+                                <option value="Right-arm Fast">Right-arm Fast</option>
+                                <option value="Left-arm Fast">Left-arm Fast</option>
+                                <option value="Right-arm Medium">Right-arm Medium</option>
+                                <option value="Left-arm Medium">Left-arm Medium</option>
+                                <option value="Right-arm Spin">Right-arm Spin</option>
+                                <option value="Left-arm Spin">Left-arm Spin</option>
+                                <option value="N/A">N/A</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Bio / Notes</label>
+                            <textarea class="form-input" id="playerBio" placeholder="Player background, achievements, notes..."></textarea>
+                        </div>
+                        
+                        <button class="btn-primary" onclick="savePlayer()">CREATE PLAYER PROFILE</button>
+                        <button class="btn-secondary" onclick="navigateTo('players')">CANCEL</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTeams() {
+            return `
+                <div class="player-profile-screen">
+                    <div class="header">
+                        <div class="header-title">TEAMS</div>
+                    </div>
+                    
+                    <div class="players-list">
+                        ${state.teams.map(team => `
+                            <div class="player-card">
+                                <div class="player-card-avatar">🏆</div>
+                                <div class="player-card-info">
+                                    <div class="player-card-name">${team.name}</div>
+                                    <div class="player-card-stats">
+                                        <span>👥 ${team.players} Players</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <button class="add-fab" onclick="alert('Demo: Add team')">+</button>
+                    
+                    ${renderBottomNav('teams')}
+                </div>
+            `;
+        }
+
+        function renderStats() {
+            return `
+                <div class="player-profile-screen">
+                    <div class="header">
+                        <div class="header-title">ANALYTICS</div>
+                    </div>
+                    
+                    <div class="empty-state">
+                        <div class="empty-icon">📊</div>
+                        <div class="empty-text">Advanced analytics dashboard<br>Coming soon!</div>
+                    </div>
+                    
+                    ${renderBottomNav('stats')}
+                </div>
+            `;
+        }
+
+        function renderBottomNav(active) {
+            return `
+                <div class="bottom-nav">
+                    <div class="nav-item ${active === 'home' ? 'active' : ''}" onclick="navigateTo('home')">
+                        <div class="nav-icon">🏠</div>
+                        <div class="nav-label">Home</div>
+                    </div>
+                    <div class="nav-item ${active === 'players' ? 'active' : ''}" onclick="navigateTo('players')">
+                        <div class="nav-icon">👥</div>
+                        <div class="nav-label">Players</div>
+                    </div>
+                    <div class="nav-item ${active === 'teams' ? 'active' : ''}" onclick="navigateTo('teams')">
+                        <div class="nav-icon">🏆</div>
+                        <div class="nav-label">Teams</div>
+                    </div>
+                    <div class="nav-item ${active === 'stats' ? 'active' : ''}" onclick="navigateTo('stats')">
+                        <div class="nav-icon">📊</div>
+                        <div class="nav-label">Stats</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Actions
+        function login() {
+            const username = document.getElementById('username').value;
+            state.currentUser = username.split('@')[0].toUpperCase();
+            state.currentScreen = 'home';
+            render();
+        }
+
+        function navigateTo(screen) {
+            state.currentScreen = screen;
+            render();
+        }
+
+        function viewPlayer(id) {
+            state.currentPlayerId = id;
+            state.currentScreen = 'player-profile';
+            render();
+        }
+
+        function savePlayer() {
+            const name = document.getElementById('playerName').value;
+            const role = document.getElementById('playerRole').value;
+            const age = document.getElementById('playerAge').value;
+            const team = document.getElementById('playerTeam').value;
+            const battingStyle = document.getElementById('battingStyle').value;
+            const bowlingStyle = document.getElementById('bowlingStyle').value;
+            
+            if (!name || !role || !age || !team) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            const newPlayer = {
+                id: state.players.length + 1,
+                name,
+                role,
+                age: parseInt(age),
+                team,
+                battingStyle,
+                bowlingStyle,
+                matches: 0,
+                runs: 0,
+                wickets: 0,
+                average: 0,
+                strikeRate: 0,
+                photo: '🏏'
+            };
+            
+            state.players.push(newPlayer);
+            alert('Player profile created successfully!');
+            navigateTo('players');
+        }
+
+        function attachEventListeners() {
+            // Event listeners attached via onclick in HTML
+        }
+
+        // Initialize
+        render();
+    </script>
+</body>
+</html>
